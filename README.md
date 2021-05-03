@@ -26,3 +26,10 @@ A simple setup that demonstrates concept of zombie computer and using it for dos
 1. Implement more than one zombie hosts using Mininet. (I haven't explored it completely, dont know if its possible.)
 2. Using an .exe file instead of Zombie.py script on victim. (on windows)
 3. Improving the Controller.
+
+# Video Demo for reference
+Dont judge me for using Bandicam :P
+
+
+[![Video for Demo](doc/ss_demo_zombie.PNG)](https://vimeo.com/544670967 "Simple Demo")
+
