@@ -1,6 +1,6 @@
 import socket
 
-HOST = "192.168.1.5"  # The server's hostname or IP address
+HOST = "192.168.1.5"  # The victim's hostname or IP address
 PORT = 7777        # The port used by the server
 
 def command(command):
@@ -14,7 +14,7 @@ def command(command):
         print('\nReceived: ', repr(data))
         print('\n')
 
-com = 'x'
+com = 'x' # Apologies for using this kind of logic lol
 
 while com != 'e':
 	print('\n')
