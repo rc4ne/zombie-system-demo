@@ -31,5 +31,5 @@ A simple setup that demonstrates concept of zombie computer and using it for dos
 Dont judge me for using Bandicam :P
 
 
-[![Video for Demo](doc/ss_demo_zombie.PNG)](https://vimeo.com/544670967 "Simple Demo")
+[![Video for Demo](ss_demo_zombie.PNG)](https://vimeo.com/544670967 "Simple Demo")
 
