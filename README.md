@@ -35,7 +35,7 @@ A simple setup that demonstrates concept of zombie computer and using it for dos
 
 # Improvement Ideas
 1. Implement more than one zombie hosts using Mininet. (I haven't explored it completely, dont know if its possible.)
-2. Using an .exe file instead of Zombie.py script on victim. (on windows)
+2. Using an .exe file instead of Zombie.py script on victim. (on windows) // I did this using pyinstaller. I had to use freeze_control() to run multithreads properly.
 3. Improving the Controller.
 4. Adding functionality of poping up ads or sending emails through victim.
 5. Privilege Escalation if needed.  
